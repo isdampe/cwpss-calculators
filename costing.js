@@ -17,34 +17,24 @@ class CostingCalculator {
 			this.prices = {
 				'sanitiser': 0.96, //Price per thousand litres.
 				'clarifier': 0.82,
-				'booster': 0.49
+				'booster': 0.36
 			};
 		}
 
 	}
 
 	/**
-	 * Computes the cost of sanitiser for the instance.
-	 * @return {Number} The cost of the sanitiser.
+	 * Computes the cost of all prices
+	 * @return {Object} The object containing prices
 	 */
-	computeSanitiser() {
-		return this.prices.sanitiser * this.volumeThousandLitres;
-	}
-
-	/**
-	 * Computes the cost of clarifier for the instance.
-	 * @return {Number} The cost of the clarifier.
-	 */
-	computeClarifier() {
-		return this.prices.clarifier * this.volumeThousandLitres;
-	}
-
-	/**
-	 * Computes the cost of booster for the instance.
-	 * @return {Number} The cost of the booster.
-	 */
-	computeBoost() {
-		return this.prices.booster * this.volumeThousandLitres;
+	computeAll() {
+		var res = {};
+		for ( var key in this.prices ) {
+			if (! this.prices.hasOwnProperty(key) )
+				continue;
+			res[key] = this.prices[key] * this.volumeThousandLitres;
+		}
+		return res;
 	}
 
 	/**
@@ -52,11 +42,16 @@ class CostingCalculator {
 	 * @return {Number} The total cost of all aspects.
 	 */
 	computeTotal() {
-		return ( 
-			this.computeSanitiser() + 
-			this.computeClarifier() + 
-			this.computeBoost()
-		);
+		var pAll = this.computeAll();
+		var total = 0;
+		for ( var key in pAll ) {
+			if (! pAll.hasOwnProperty(key) )
+				continue;
+
+			total += pAll[key];
+		}
+
+		return total;
 	}
 }
 

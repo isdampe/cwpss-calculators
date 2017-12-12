@@ -32,3 +32,19 @@ console.log(sc.computeHardness(165));
 
 console.log('Recommendations');
 console.log(sc.computeRecommendations());
+
+console.log('Costings');
+var cc = new CostingCalculator(10000, {
+	'sanitiser': 0.1654,
+	'shine': 0.0254,
+	'miriclear': 0.1
+});
+console.log(cc.computeAll());
+
+console.log('Costings');
+var cc = new CostingCalculator(10000, {
+	'sanitiser': 0.166,
+	'shine': 0.027,
+	'algaeside': 0.073
+});
+console.log(cc.computeAll());
